@@ -1,0 +1,33 @@
+/*right align the menu links of sign up & log in*/
+.menu-spacer {
+  margin-left: 815px;
+
+
+}
+
+.makeToolbarsticky{
+
+  position: sticky;
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+
+}
+
+
+.home-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+  }
+
+
+
+  nav a:active {
+    color: magenta;
+  }
+
+  h1{
+    margin-top: 0.2%;
+    margin-left: 1%;
+  }
+

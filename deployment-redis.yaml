@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redisclient
+  labels:
+    app: redisclient
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redisclient
+  template:
+    metadata:
+      labels:
+        app: redisclient
+    spec:
+      containers:
+      - name: redisclient
+        image: redis
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+          - name: redisdata
+            mountPath: /data
+      volumes:
+      - name: redisdata
+        persistentVolumeClaim:
+          claimName: redisdata
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: redisclusterip
+spec:
+  type: ClusterIP
+  selector:
+    app: redisclient
+  ports:
+  - port: 6379
+    targetPort: 6379
+
+---
+
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: redisdata
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+        storage: 10Mi

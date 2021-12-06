@@ -1,0 +1,14 @@
+### STAGE 1: Build ###
+FROM node:14.8.0-alpine3.10
+
+# below directory stores the built backend
+WORKDIR /proxy
+RUN npm install express
+RUN npm install redis
+RUN npm install request
+# RUN npm install json-stringify-safe
+COPY proxy.js .
+
+EXPOSE 5000
+CMD node proxy.js
+

@@ -1,0 +1,131 @@
+<div *ngIf="view == 1">
+<h2 mat-dialog-title>Terms of Use & Privacy Policy</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Please read carefully before you proceed</h3>
+  <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+       incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+         irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+          nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+           qui officia deserunt mollit anim id est laborum."</p>
+
+  <h3>Terms & Conditions</h3>
+  <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+       incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+         irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+          nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+           qui officia deserunt mollit anim id est laborum."</p>
+
+           <h3>Privacy Policy</h3>
+           <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                 exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                   nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                    qui officia deserunt mollit anim id est laborum."</p>
+
+  
+
+ 
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="iAgree()" cdkFocusInitial>I Agree</button>
+</mat-dialog-actions>
+</div>
+
+<div id="addappointdialog" *ngIf="view == 2">
+  <mat-label class="align-fields" style="font-size: larger; margin-left: 29%;">Add Appointment</mat-label> 
+  <form (ngSubmit)="SubmitAppointment()" autocomplete="off" [formGroup]='submitAppointmentForm' class="form">
+         
+<!--THE DATE FIELD-->
+    <mat-form-field class="align-fields" appearance="fill" onkeydown="return false">
+      <mat-label>Choose day</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName='day'>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="submitAppointmentForm.get('day').touched && !submitAppointmentForm.get('day').valid">
+        <mat-error class="alert  alert-danger" *ngIf="submitAppointmentForm.get('day').errors.required">
+          <span>You need to select a date</span>
+        </mat-error>
+      </mat-error>
+      <mat-icon matSuffix *ngIf="submitAppointmentForm.get('day').touched && submitAppointmentForm.get('day').valid" style="color: green;">sentiment_very_satisfied</mat-icon>
+      <mat-icon matSuffix *ngIf="submitAppointmentForm.get('day').touched && !submitAppointmentForm.get('day').valid" style="color: red;">sentiment_dissatisfied</mat-icon>
+      <mat-icon matSuffix *ngIf="!submitAppointmentForm.get('day').touched" >sentiment_very_satisfied</mat-icon>                    
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+      </mat-datepicker-toggle>
+    </mat-form-field>
+
+
+<!--THE TIME FIELD-->  
+<mat-form-field onkeydown="return false" class="align-fields">
+  <mat-label>Choose time</mat-label>
+  <input matInput type="time" formControlName='time'>
+  <mat-error *ngIf="submitAppointmentForm.get('time').touched && !submitAppointmentForm.get('time').valid">
+    <mat-error class="alert  alert-danger" *ngIf="submitAppointmentForm.get('time').errors.required">
+      <span>You need to select time</span>
+    </mat-error>
+  </mat-error>
+  <mat-icon matSuffix *ngIf="submitAppointmentForm.get('time').touched && submitAppointmentForm.get('time').valid" style="color: green;">sentiment_very_satisfied</mat-icon>
+  <mat-icon matSuffix *ngIf="submitAppointmentForm.get('time').touched && !submitAppointmentForm.get('time').valid" style="color: red;">sentiment_dissatisfied</mat-icon>
+  <mat-icon matSuffix *ngIf="!submitAppointmentForm.get('time').touched" >sentiment_very_satisfied</mat-icon>                
+</mat-form-field> 
+
+
+<!--THE ORG FIELD-->
+<mat-form-field appearance="legacy" class="align-fields">
+  <mat-label>Choose organization</mat-label>
+  <mat-select formControlName="org" class="form-control" (click)="getOrgNames()">
+    <mat-option *ngFor="let org of organizations_retrieved_from_api" [value]="org" style="font-size: 10px;">
+      {{org}}
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="!submitAppointmentForm.get('org').value">You did not select an organization</mat-error>
+  <mat-icon matSuffix *ngIf="submitAppointmentForm.get('org').value" style="color: green;">sentiment_very_satisfied</mat-icon>
+  <mat-icon matSuffix *ngIf="!submitAppointmentForm.get('org').value && submitAppointmentForm.get('org').touched" style="color: red;">sentiment_dissatisfied</mat-icon>
+  <mat-icon matSuffix *ngIf="!submitAppointmentForm.get('org').touched" >sentiment_very_satisfied</mat-icon>                 
+  </mat-form-field>
+
+<!--the submit button-->
+<button mat-raised-button color="primary" id="button-alignment" class="align-fields" type="reset" (click)="SubmitAppointment();" [disabled]="submitAppointmentForm.status=='INVALID'">SUBMIT</button>
+
+
+  </form>
+
+</div>
+
+<div *ngIf="view == 3">
+
+<p>Are you sure you want to Approve?</p>
+<p>Check for possible conflicts before you proceed.</p>
+<button mat-raised-button color="primary" id="cancel-button" (click)="onCancel3()">Cancel</button>
+<button mat-raised-button color="primary" id="ok-button" (click)="CheckConflictsBeforeApproval();">Check for Conflicts</button>
+</div>
+
+
+<div *ngIf="view == 4"> 
+  <p>Are you sure you want to Delete?</p>
+  <p>Be careful cause this action can NOT be reversed.</p>  
+<button mat-raised-button color="primary" id="cancel-button" (click)="onCancel()">Cancel</button>
+<button mat-raised-button color="primary" id="ok-button" (click)="confirmDeleteAppointmentFromDB();">Delete</button>
+</div>
+
+
+
+<div *ngIf="view == 5"> 
+  <p>Are you sure you want to Cancel?</p>
+  <p>Be careful cause this action can NOT be reversed.</p>  
+<button mat-raised-button color="primary" id="cancel-button" (click)="onCancel()">Cancel</button>
+<button mat-raised-button color="primary" id="ok-button" (click)="confirmCancelationOfAppointment();">OK</button>
+</div>
+
+
+<div *ngIf="view == 6"> 
+  <p>Are you sure you want to Reject?</p>
+  <p>Be careful cause this action can NOT be reversed.</p>  
+<button mat-raised-button color="primary" id="cancel-button" (click)="onCancel()">Cancel</button>
+<button mat-raised-button color="primary" id="ok-button" (click)="Reject();">OK</button>
+</div>
+
+

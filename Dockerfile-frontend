@@ -1,0 +1,20 @@
+### STAGE 1: Build ###
+FROM node:14.8.0-alpine3.10
+
+# below directory stores the built frontend
+
+WORKDIR /frontend
+COPY package.json .
+COPY package-lock.json .
+RUN npm install
+# RUN npm install json-stringify-safe
+WORKDIR /frontend/src
+COPY src .
+WORKDIR /frontend
+COPY angular.json .
+COPY tsconfig.json .
+COPY tsconfig.app.json .
+
+
+EXPOSE 4200
+CMD node_modules/.bin/ng serve --host 0.0.0.0 --proxy-config /frontend/src/proxy.conf.ts

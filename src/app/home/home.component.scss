@@ -1,0 +1,115 @@
+
+/*right align the menu links of sign up & log in*/
+.menu-spacer {
+  margin-left: 800px;
+
+}
+
+body {
+  margin-top: -5% !important;
+
+   /* The image used */
+   background-image: url("src/signup.jpg") !important;
+  
+   /* Full height */
+   height: 100% !important; 
+ 
+   /* Center and scale the image nicely */
+   background-position: center !important;
+   background-repeat: no-repeat !important;
+   background-size: cover !important;
+}
+
+.makeToolbarsticky{
+
+  position: sticky;
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+
+}
+/*center the sign up panel*/
+  .panel {
+    max-width: 500px;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+
+.center {
+  margin-left: 3%;
+}
+
+
+
+
+  button.mat-raised-button{
+    margin-left: 65%;
+  }
+
+.link{
+  color: lightskyblue;
+  font-size: small;
+  margin-left: 5%;
+}
+.link:active{
+  color: lightblue;
+}
+.linktermspolicy{
+  font-size: 15px;
+   color: rgb(181, 223, 247);
+}
+.linktermspolicy:active{
+  color: rgb(66, 120, 165);
+}
+
+  nav .a {
+    font-size: medium;
+    margin-left: 5%;
+  }
+
+  nav a:active {
+    color: magenta;
+  }
+
+  mat-icon.mat-card-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+  }
+
+  ::ng-deep .mat-card-header{
+    background-color: rgba(94, 150, 214, 0.329) !important;
+    padding:10px !important;
+    filter: drop-shadow(16px 16px 10px rgba(94, 150, 214, 0.329));
+  }
+  ::ng-deep .mat-card{
+    padding:0 !important;
+    background-color: rgba(94, 150, 214, 0.329);
+    filter: drop-shadow(16px 16px 10px rgba(94, 150, 214, 0.329));
+  }
+  
+  ::ng-deep .mat-card-content{
+    padding:5px !important;
+  }
+
+  .signuppage-icon {
+    width: 30px; 
+    height: 30px;
+    font-size: 30px;
+  }
+  h1{
+    margin-top: 0.2%;
+    margin-left: 1%;
+  }
+
+  .rightside{
+
+    float: right;
+
+  }
+.leftside{
+
+float: left;
+}

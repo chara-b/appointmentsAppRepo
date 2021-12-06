@@ -1,0 +1,69 @@
+version: '3.4'
+
+services:
+  redisclient:
+    image: 'redis'
+    restart: always
+    volumes:
+      - ./redis-data:/data
+    ports:
+      - 6379
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile-backend
+    restart: always
+    ports:
+      - 3000
+    #links:
+     #- redisclient:redis
+    #ports:
+    # - "3000:3000"
+    depends_on:
+      - redisclient
+      - mysqldb
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile-frontend
+    restart: always
+    depends_on:
+      - backend
+  proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile-proxy
+    restart: always
+    ports:
+      - 5000
+    depends_on: 
+      - redisclient
+  mysqldb:
+    image: 'mysql/mysql-server:latest'
+    restart: always
+    ports: 
+      - 3306
+    command:
+      --init-file /data/application/loadDB.sql
+      --default-authentication-plugin=mysql_native_password
+    volumes:
+     ##- ./loadDB:/docker-entrypoint-initdb.d
+      - ./loadDB.sql:/data/application/loadDB.sql
+      #- ./db_data:/var/lib/mysql
+    environment:
+      - MYSQL_PASSWORD=pass
+      - MYSQL_DATABASE=appointmentsdb
+      - MYSQL_USER=root
+      #- MYSQL_ROOT_PASSWORD=pass
+  nginx:
+    image: nginx:latest
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certs:/etc/nginx/certs
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+      - frontend

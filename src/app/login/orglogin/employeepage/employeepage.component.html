@@ -1,0 +1,283 @@
+<body>
+<div>
+    <!--the pink menu bar-->
+    <mat-toolbar color="primary" class="makeToolbarsticky">
+        <mat-toolbar-row>                
+            <mat-icon (click)="drawer.toggle()" style="cursor: pointer;">menu</mat-icon>
+            <h1> Hello {{shownName}}</h1>
+            <nav class="menu-spacer">
+                <a mat-button [routerLink]="'/logout'" (click)="logOut()" routerLinkActive="active"><mat-icon>person</mat-icon> Logout </a>
+            </nav>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <!--SIDEBAR-->
+
+    <mat-drawer-container class="sidebar-container" autosize>
+      <mat-drawer #drawer class="sidebar" mode="side">
+          <p><a mat-button id="sideprofilebutton" (click)="showView('profile')" [routerLink]="'/employeepage'" routerLinkActive="active"><mat-icon>portrait</mat-icon> Profile </a></p>
+      
+          <p><a mat-button id="sidecheckbutton" (click)="showView('tableview')" [routerLink]="'/employeepage'" routerLinkActive="active"><mat-icon>event_available</mat-icon> Check Appointments </a></p>
+      
+          <p><a mat-button id="sidelogoutbutton" [routerLink]="'/logout'" (click)="logOut()" routerLinkActive="active"><mat-icon>person</mat-icon> Logout </a></p>
+      
+        </mat-drawer>
+
+ 
+
+<div *ngIf="show === 'tableview'">
+<!--TABLE-->
+<!-- 
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <td mat-cell *matCellDef="let line">{{line[column]}} <button mat-raised-button (click)="Approve(line)" *ngIf="column === 'Actions'">Approve</button> </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+-->
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            
+          
+  <!-- ORGANIZATION COLUMN -->
+  <ng-container matColumnDef="Organization">
+    <th mat-header-cell *matHeaderCellDef> Organization </th>
+    <td mat-cell *matCellDef="let item" style="width: 20%;"> 
+      {{item.org}}
+    </td>
+  </ng-container>
+
+  <!-- DAY COLUMN -->
+  <ng-container matColumnDef="Day">
+    <th mat-header-cell *matHeaderCellDef> Day </th>
+    <td mat-cell *matCellDef="let item2">  
+      {{item2.day}}    
+    </td>
+  </ng-container>
+
+  <!-- TIME COLUMN -->
+  <ng-container matColumnDef="Time">
+    <th mat-header-cell *matHeaderCellDef> Time </th>
+    <td mat-cell *matCellDef="let item3"> 
+      {{item3.time}}
+    </td>
+  </ng-container>
+
+  <!-- EMAIL COLUMN -->
+  <ng-container matColumnDef="Email">
+    <th mat-header-cell *matHeaderCellDef> Email </th>
+    <td mat-cell *matCellDef="let item4"> 
+      {{item4.email}}        
+    </td>
+  </ng-container>
+
+
+     <!-- STATUS COLUMN -->
+     <ng-container matColumnDef="Status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let item5"> 
+        {{item5.status}}    
+      </td>
+    </ng-container>
+
+  <!-- ACTIONS COLUMN -->
+  <ng-container matColumnDef="Action">    
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let item6">
+        <button (click)="ConfirmApprovalBeforeActualApproval(item6, dataSource.filteredData.indexOf(item6))" type="button" *ngIf="((dataSource.filteredData.indexOf(item6) !== clickedline && conflicts) || (!conflicts))" class="glossy-button glossy-button--green"> Approve </button>
+        <button  (click)="SendEmail(item6)" *ngIf="(dataSource.filteredData.indexOf(item6) === clickedline && conflicts)" type="button"class="glossy-button glossy-button--green"> Send Notification </button>
+        <button  (click)="Reject(item6)" *ngIf="((dataSource.filteredData.indexOf(item6) !== clickedline && conflicts) || (!conflicts))" type="button"class="glossy-button glossy-button--green"> Reject </button>
+     
+      </td>      
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>       
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<div *ngIf="pendingAppointments === undefined || pendingAppointments.length === 0">
+  <p style="margin-left: 48%;">There are no records.</p>
+  <p style="margin-left: 35%;">All records have been approved or there are no records for this organization yet.</p>
+</div>
+
+<mat-paginator id="paginator" [length]="length"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[2, 3, 5, 10]"
+      (page)="pageEvent = $event" showFirstLastButtons>
+</mat-paginator>
+
+
+<!--Approved Appointments Table-->
+
+<table mat-table [dataSource]="dataSource2" class="mat-elevation-z8" id="tableApprovedAppointments">
+            
+     
+  <!-- ORGANIZATION COLUMN -->
+  <ng-container matColumnDef="Organization">
+    <th mat-header-cell *matHeaderCellDef> Organization </th>
+    <td mat-cell *matCellDef="let item" style="width: 20%;"> 
+      {{item.Organization}}
+    </td>
+  </ng-container>
+
+  <!-- DAY COLUMN -->
+  <ng-container matColumnDef="Day">
+    <th mat-header-cell *matHeaderCellDef> Day </th>
+    <td mat-cell *matCellDef="let item2">  
+      {{item2.Day}}    
+    </td>
+  </ng-container>
+
+  <!-- TIME COLUMN -->
+  <ng-container matColumnDef="Time">
+    <th mat-header-cell *matHeaderCellDef> Time </th>
+    <td mat-cell *matCellDef="let item3"> 
+      {{item3.Time}}
+    </td>
+  </ng-container>
+
+     <!-- USER EMAIL COLUMN -->
+     <ng-container matColumnDef="Email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let item3"> 
+        {{item3.Email}}
+      </td>
+    </ng-container>
+
+     <!-- STATUS COLUMN -->
+     <ng-container matColumnDef="Status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let item5"> 
+        {{item5.Status}}    
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsApproved"></tr>       
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsApproved;"></tr>
+  </table>
+  
+
+  <mat-paginator id="paginator" [length]="length2"
+  [pageSize]="pageSize2"
+  [pageSizeOptions]="[2, 3, 5, 10]"
+  (page)="pageEvent2 = $event" showFirstLastButtons>
+</mat-paginator>
+
+
+<!--Rejected Appointments Table-->
+
+<table mat-table [dataSource]="dataSource3" class="mat-elevation-z8" id="tableRejectedAppointments">
+            
+     
+  <!-- ORGANIZATION COLUMN -->
+  <ng-container matColumnDef="Organization">
+    <th mat-header-cell *matHeaderCellDef> Organization </th>
+    <td mat-cell *matCellDef="let item" style="width: 20%;"> 
+      {{item.Organization}}
+    </td>
+  </ng-container>
+
+  <!-- DAY COLUMN -->
+  <ng-container matColumnDef="Day">
+    <th mat-header-cell *matHeaderCellDef> Day </th>
+    <td mat-cell *matCellDef="let item2">  
+      {{item2.Day}}    
+    </td>
+  </ng-container>
+
+  <!-- TIME COLUMN -->
+  <ng-container matColumnDef="Time">
+    <th mat-header-cell *matHeaderCellDef> Time </th>
+    <td mat-cell *matCellDef="let item3"> 
+      {{item3.Time}}
+    </td>
+  </ng-container>
+
+   <!-- USER EMAIL COLUMN -->
+   <ng-container matColumnDef="Email">
+    <th mat-header-cell *matHeaderCellDef> Email </th>
+    <td mat-cell *matCellDef="let item3"> 
+      {{item3.Email}}
+    </td>
+  </ng-container>
+
+
+     <!-- STATUS COLUMN -->
+     <ng-container matColumnDef="Status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let item5"> 
+        {{item5.Status}}    
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsRejected"></tr>       
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsRejected;"></tr>
+  </table>
+  
+
+  <mat-paginator id="paginator" [length]="length3"
+  [pageSize]="pageSize3"
+  [pageSizeOptions]="[2, 3, 5, 10]"
+  (page)="pageEvent3 = $event" showFirstLastButtons>
+</mat-paginator>
+</div>
+
+
+<div *ngIf="show === 'profile'">
+
+<p style="margin-top: 10%; font-size: larger; margin-left: 20%">Your Profile Info is displayed below</p>
+
+<table mat-table [dataSource]="dataSource4" class="mat-elevation-z8" id="tableInfo">
+            
+     
+  <!-- First Name COLUMN -->
+  <ng-container matColumnDef="FirstName">
+    <th mat-header-cell *matHeaderCellDef> First Name </th>
+    <td mat-cell *matCellDef="let item" style="width: 20%;"> 
+      {{item.firstname}}
+    </td>
+  </ng-container>
+
+  <!-- Last Name COLUMN -->
+  <ng-container matColumnDef="LastName">
+    <th mat-header-cell *matHeaderCellDef> Last Name </th>
+    <td mat-cell *matCellDef="let item2">  
+      {{item2.lastname}}    
+    </td>
+  </ng-container>
+
+  <!-- Organization COLUMN -->
+  <ng-container matColumnDef="Organization">
+    <th mat-header-cell *matHeaderCellDef> Organization </th>
+    <td mat-cell *matCellDef="let item3"> 
+      {{item3.org}}
+    </td>
+  </ng-container>
+
+<!-- Email COLUMN -->
+<ng-container matColumnDef="Email">
+  <th mat-header-cell *matHeaderCellDef> Email </th>
+  <td mat-cell *matCellDef="let item3"> 
+    {{item3.email}}
+  </td>
+</ng-container>
+
+<tr mat-header-row *matHeaderRowDef="displayedColumnsInfo"></tr>       
+<tr mat-row *matRowDef="let row; columns: displayedColumnsInfo;"></tr>
+</table>
+
+
+
+</div>
+
+
+
+</mat-drawer-container>
+</div>
+</body>
+
+

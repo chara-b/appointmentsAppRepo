@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <!--the pink menu bar-->
+<mat-toolbar color="primary" class="makeToolbarsticky">
+    <mat-toolbar-row>                
+        <mat-icon class="signuppage-icon">person</mat-icon>
+        <h1> User Login Page</h1>
+        <nav class="menu-spacer">
+            <a mat-button [routerLink]="'/'" routerLinkActive="active"><mat-icon>home</mat-icon> Home</a>
+            <a mat-button [routerLink]="'/signup'" routerLinkActive="active"><mat-icon>account_circle</mat-icon> Sign Up</a>
+            <a mat-button [routerLink]="'/login'" routerLinkActive="active"><mat-icon>person</mat-icon> Login </a>
+        </nav>
+    </mat-toolbar-row>
+</mat-toolbar>
+<p style="color: rgb(255, 255, 255); margin-top: 60px; font-size: 30px;margin-left: 590px;">User Login</p>
+<div class="loginuser">
+<!--LOGIN FORM STARTS HERE-->
+<form (ngSubmit)="LoginUser()" autocomplete="off" [formGroup]='loginUserForm' class="form">
+
+    <p class="center" id="emailfield">
+        <mat-form-field appearance="legacy">
+          <mat-label>E-mail</mat-label>
+          <input matInput placeholder="Enter your email" formControlName='email' type="text" class="form-control" style="color: white;">
+          
+          <mat-error *ngIf="loginUserForm.get('email').touched && !loginUserForm.get('email').valid">
+            <mat-error class="alert  alert-danger" *ngIf="loginUserForm.get('email').errors.required">
+              <span>email is required</span>
+            </mat-error>
+            <mat-error class="alert  alert-danger" *ngIf="loginUserForm.get('email').errors.minlength">
+              <span>email must be 7 length minimum</span>
+            </mat-error>
+            <mat-error class="alert  alert-danger" *ngIf="loginUserForm.get('email').errors.maxlength">
+              <span>email must be 50 length maximum</span>
+            </mat-error>
+            <mat-error class="alert  alert-danger" *ngIf="!loginUserForm.get('email').valid && loginUserForm.get('email').dirty">
+              <span>This is not a valid email address format</span>
+            </mat-error>
+            </mat-error>
+          <mat-icon matSuffix *ngIf="loginUserForm.get('email').touched && loginUserForm.get('email').valid" style="color: green;">sentiment_very_satisfied</mat-icon>
+          <mat-icon matSuffix *ngIf="loginUserForm.get('email').touched && !loginUserForm.get('email').valid" style="color: red;">sentiment_dissatisfied</mat-icon>
+          <mat-icon matSuffix *ngIf="!loginUserForm.get('email').touched" style="color: white;">sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+      </p>
+    
+    
+
+
+
+
+
+    <!--the password field-->
+    <p class="center">
+      <mat-form-field appearance="legacy">
+        <mat-label>Password</mat-label>
+        <!--allazoume to type me property binding mixanismo meso enos if statement, etsi to kanoume apo
+            password se text gia na fainetai i oxi i pliktrologisi tou kodikou-->
+          <input matInput placeholder="Enter your password" formControlName='password' [type]="hide ? 'password' : 'text'" class="form-control" style="color: white;">                      
+          <!--To visibility_off kai to visibility einai onomata ton icons tipota allo-->
+          <mat-icon style="cursor: pointer; color: white;" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <!--edo arxizoun ta divs gia na petagontai ta errors molis ginoun energopoiithoun kai ginoun render auta ta divs edo
+              auto to motivo epanalambanetai gia ola ta fields tis formas-->
+              <mat-error class="alert  alert-danger" *ngIf=" !loginUserForm.get('password').valid && loginUserForm.get('password').touched">                     
+                  <mat-error class="alert  alert-danger" *ngIf=" loginUserForm.get('password').errors.required">
+                      <span>Password is required</span>                      
+                  </mat-error>
+              </mat-error>
+       <mat-icon matSuffix *ngIf="loginUserForm.get('password').touched && loginUserForm.get('password').valid" style="color: green;">sentiment_very_satisfied</mat-icon>
+       <mat-icon matSuffix *ngIf="loginUserForm.get('password').touched && !loginUserForm.get('password').valid" style="color: red;">sentiment_dissatisfied</mat-icon>
+       <mat-icon matSuffix *ngIf="!loginUserForm.get('password').touched" style="color: white;">sentiment_very_satisfied</mat-icon>                
+      </mat-form-field>
+    </p>
+
+
+
+
+  
+
+
+
+  
+ 
+
+  <!--the submit button-->
+    <button mat-raised-button color="primary" type="reset" (click)="LoginUser()" [disabled]="loginUserForm.status=='INVALID'">Login</button>
+
+  </form>
+</div>
+
+  <!--This is for the loading image. This will be activated only when the user clicks the log in button
+and waits for the system to redirect him so while he is waiting this image will be displayed
+<div [class.spinner]="loading"></div> -->
+<div id="spinner" class="spinner" style="visibility: hidden;"> </div>
+
+</body>
+</html>

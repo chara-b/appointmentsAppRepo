@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<!--the pink menu bar-->
+        <mat-toolbar color="primary" class="makeToolbarsticky">
+            <mat-toolbar-row>                
+                <mat-icon class="signuppage-icon">account_circle</mat-icon>
+                <h1> SignUp Page</h1>
+                <nav class="menu-spacer">
+                    <a mat-button [routerLink]="'/'" routerLinkActive="active"><mat-icon>home</mat-icon> Home</a>
+                    <a mat-button [routerLink]="'/signup'" routerLinkActive="active"><mat-icon>account_circle</mat-icon> Sign Up</a>
+                    <a mat-button [routerLink]="'/login'" routerLinkActive="active"><mat-icon>person</mat-icon> Login </a>
+                </nav>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+<!--the sign up form-->
+        <mat-card class="panel" color="primary">
+            <mat-card-header>
+              <mat-icon mat-card-avatar>account_circle</mat-icon>
+              <mat-card-title>Create Your Account</mat-card-title>
+              <mat-card-subtitle>Sign Up</mat-card-subtitle>
+            </mat-card-header>
+            <!--THE SIGN UP FORM-->
+            <mat-card-content>
+                <form (ngSubmit)="SignUpUser()" autocomplete="off" [formGroup]='signupUserForm' class="form">
+                  <p class="leftside">
+                    <!--the first name field-->
+                    <mat-form-field appearance="legacy">
+                      <mat-label>First Name</mat-label>
+                      <input matInput placeholder="Enter your first name" formControlName='firstname' type="text" class="form-control">
+                      <mat-error *ngIf="signupUserForm.get('firstname').touched && !signupUserForm.get('firstname').valid">
+                      <mat-error class="alert  alert-danger" *ngIf="signupUserForm.get('firstname').errors.required">
+                        <span>first name is required</span>
+                      </mat-error>
+                      <mat-error class="alert  alert-danger" *ngIf="signupUserForm.get('firstname').errors.minlength">
+                        <span>first name must be 2 length minimum</span>
+                      </mat-error>
+                      <mat-error class="alert  alert-danger" *ngIf="signupUserForm.get('firstname').errors.maxlength">
+                        <span>first name must be 30 length maximum</span>
+                      </mat-error>
+                      </mat-error>
+                      <mat-icon matSuffix *ngIf="signupUserForm.get('firstname').touched && signupUserForm.get('firstname').valid" style="color: green;">sentiment_very_satisfied</mat-icon>
+                     <mat-icon matSuffix *ngIf="signupUserForm.get('firstname').touched && !signupUserForm.get('firstname').valid" style="color: red;">sentiment_dissatisfied</mat-icon>
+                     <mat-icon matSuffix *ngIf="!signupUserForm.get('firstname').touched" >sentiment_very_satisfied</mat-icon>                
+                    </mat-form-field>
+                  </p>
+                  <!--the last name field-->
+                  <p class="rightside">
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Last Name</mat-label>
+                      <input matInput placeholder="Enter your last name" formControlName='lastname' type="text" class="form-control">                         
+                      <mat-error *ngIf="signupUserForm.get('lastname').touched && !signupUserForm.get('lastname').valid">
+                        <mat-error class="alert  alert-danger" *ngIf="signupUserForm.get('lastname').errors.required">
+                          <span>last name is required</span>
+                        </mat-error>
+                        <mat-error class="alert  alert-danger" *ngIf="signupUserForm.get('lastname').errors.minlength">
+                          <span>last name must be 2 length minimum</span>
+                        </mat-error>
+                        <mat-error class="alert  alert-danger" *ngIf="signupUserForm.get('lastname').errors.maxlength">
+                          <span>last name must be 30 length maximum</span>
+                        </mat-error>
+                        </mat-error>
+                      <mat-icon matSuffix *ngIf="signupUserForm.get('lastname').touched && signupUserForm.get('lastname').valid" style="color: green;">sentiment_very_satisfied</mat-icon>
+                      <mat-icon matSuffix *ngIf="signupUserForm.get('lastname').touched && !signupUserForm.get('lastname').valid" style="color: red;">sentiment_dissatisfied</mat-icon>
+                      <mat-icon matSuffix *ngIf="!signupUserForm.get('lastname').touched" >sentiment_very_satisfied</mat-icon>
+                    </mat-form-field>
+                  </p>
+
+                  <!--the password field-->
+                  <p class="leftside">
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Password</mat-label>
+                      <!--allazoume to type me property binding mixanismo meso enos if statement, etsi to kanoume apo
+                          password se text gia na fainetai i oxi i pliktrologisi tou kodikou-->
+                        <input matInput placeholder="Enter your password" formControlName='password' [type]="hide ? 'password' : 'text'" class="form-control">                      
+                        <!--To visibility_off kai to visibility einai onomata ton icons tipota allo-->
+                        <mat-icon style="cursor: pointer;" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <!--edo arxizoun ta divs gia na petagontai ta errors molis ginoun energopoiithoun kai ginoun render auta ta divs edo
+                            auto to motivo epanalambanetai gia ola ta fields tis formas-->
+                            <mat-error class="alert  alert-danger" *ngIf=" !signupUserForm.get('password').valid && signupUserForm.get('password').touched">                     
+                                <mat-error class="alert  alert-danger" *ngIf=" signupUserForm.get('password').errors.required">
+                                    <span>Password is required</span>                      
+                                </mat-error>                   
+                                <mat-error class="alert  alert-danger" *ngIf="signupUserForm.get('password').errors.pattern">
+                                    <span>Password must contain english characters at least one lower case, one upper case, one digit, one symbol and must be more than 8 characters and less than 20 </span>
+                                </mat-error>
+                            </mat-error>
+                     <mat-icon matSuffix *ngIf="signupUserForm.get('password').touched && signupUserForm.get('password').valid" style="color: green;">sentiment_very_satisfied</mat-icon>
+                     <mat-icon matSuffix *ngIf="signupUserForm.get('password').touched && !signupUserForm.get('password').valid" style="color: red;">sentiment_dissatisfied</mat-icon>
+                     <mat-icon matSuffix *ngIf="!signupUserForm.get('password').touched" >sentiment_very_satisfied</mat-icon>                
+                    </mat-form-field>
+                  </p>
+
+
+
+
+                <p class="rightside">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>E-mail</mat-label>
+                    <input matInput placeholder="Enter your email" formControlName='email' type="text" class="form-control" (change)="getEmails()">
+                    
+                    <mat-error *ngIf="signupUserForm.get('email').touched && !signupUserForm.get('email').valid">
+                      <mat-error class="alert  alert-danger" *ngIf="signupUserForm.get('email').errors.required">
+                        <span>email is required</span>
+                      </mat-error>
+                      <mat-error class="alert  alert-danger" *ngIf="signupUserForm.get('email').errors.minlength">
+                        <span>email must be 7 length minimum</span>
+                      </mat-error>
+                      <mat-error class="alert  alert-danger" *ngIf="signupUserForm.get('email').errors.maxlength">
+                        <span>email must be 50 length maximum</span>
+                      </mat-error>
+                      <mat-error class="alert  alert-danger" *ngIf="!signupUserForm.get('email').valid && signupUserForm.get('email').dirty">
+                        <span>This is not a valid email address format</span>
+                      </mat-error>
+                      </mat-error> 
+                      <div *ngIf="emailexists">
+                        <span style="color: rgb(235, 63, 57);">This email is already registered both as user and employee</span>
+                      </div>
+                      <div *ngIf="useremailexists && (!signupUserForm.get('code').dirty || signupUserForm.get('code').value === '') && !emailexists">
+                        <span style="color: rgb(235, 63, 57);">This email is in use! You can sign up using it only as an employee! Provide a code below</span>
+                      </div>
+                      
+                      <div *ngIf="employeemailexists && (signupUserForm.get('code').dirty && signupUserForm.get('code').value !== '') && !emailexists">
+                        <span style="color: rgb(235, 63, 57);">This email is in use! You can sign up using it only as a user!</span>
+                      </div>
+                     
+                    <mat-icon matSuffix *ngIf="signupUserForm.get('email').touched && signupUserForm.get('email').valid && !emailexists || (!employeemailexists && (!signupUserForm.get('code').dirty && signupUserForm.get('code').value === '')) && (!useremailexists && (!signupUserForm.get('code').dirty || signupUserForm.get('code').value === ''))" style="color: green;">sentiment_very_satisfied</mat-icon>
+                    <mat-icon matSuffix *ngIf="signupUserForm.get('email').touched && !signupUserForm.get('email').valid || emailexists || (employeemailexists && (signupUserForm.get('code').dirty && signupUserForm.get('code').value !== '')) || (useremailexists && (!signupUserForm.get('code').dirty || signupUserForm.get('code').value === ''))" style="color: red;">sentiment_dissatisfied</mat-icon>
+                    <mat-icon matSuffix *ngIf="!signupUserForm.get('email').touched" >sentiment_very_satisfied</mat-icon>
+                  </mat-form-field>
+                </p>
+
+                <p class="leftside">Enter below the code you have been provided to sign up as an employee</p>
+                <!--the role (employee case of sign up) -->
+                <p class="center">
+                  <input matInput formControlName='code' class="form-control" style="width: 45%;" placeholder="Enter your code" [type]="hide2 ? 'password' : 'text'" (change)="checkIfCodeInsertedExists()">
+                  <mat-icon style="cursor: pointer;" matSuffix (click)="hide2 = !hide2">{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </p>
+
+                <p class="center">
+                  <mat-checkbox color="primary" formControlName='policy' class="form-control">By signing up you accept our</mat-checkbox><a class="linktermspolicy" [routerLink]="'/termspopup'" (click)="openDialog()">Terms of Use and our Privacy policy</a>
+                </p>
+
+                <!--the if code field is valid the field of organization selection is appeared-->
+                <div *ngIf="codecorrect && !employeemailexists">
+                    <p class="center">
+                        <mat-form-field appearance="legacy">
+                        <mat-label>Choose organization</mat-label>
+                        <mat-select formControlName="org" class="form-control" (click)="getOrgNames()">
+                          <mat-option *ngFor="let org of organizations_retrieved_from_api" [value]="org" style="font-size: 10px;">
+                            {{org}}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="!signupUserForm.get('org').value">You did not select an organization</mat-error>
+                        <mat-icon matSuffix *ngIf="signupUserForm.get('org').value" style="color: green;">sentiment_very_satisfied</mat-icon>
+                        <mat-icon matSuffix *ngIf="!signupUserForm.get('org').value && signupUserForm.get('org').touched" style="color: red;">sentiment_dissatisfied</mat-icon>
+                        <mat-icon matSuffix *ngIf="!signupUserForm.get('org').touched" >sentiment_very_satisfied</mat-icon>                 
+                        </mat-form-field>
+                      </p>
+                </div>
+        
+                
+               
+
+                <!--the submit button-->
+                  <button mat-raised-button color="primary" type="reset" (click)="SignUpUser();" [disabled]="signupUserForm.status=='INVALID' || !signupUserForm.get('policy').value || (employeemailexists && signupUserForm.get('code').dirty && signupUserForm.get('code').value !== '') || (useremailexists && !signupUserForm.get('code').dirty && signupUserForm.get('code').value === '')  || emailexists || (useremailexists && !employeemailexists && !codecorrect)">CREATE</button>
+
+                </form>
+                <!--the already have an account link router-->
+                <a [routerLink]="'/login'" class="link"> Already have an account? Log me in. </a>
+
+            </mat-card-content>
+
+            <mat-card-actions>
+              <!--einai kati san to footer tis material card den xreiazetai na bei kati edo-->
+            </mat-card-actions>
+          </mat-card>
+
+<!--
+        <router-outlet></router-outlet>
+
+-->
+
+
+
+
+
+
+
+</body>
+</html>

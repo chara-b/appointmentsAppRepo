@@ -1,0 +1,122 @@
+body{
+
+    margin-top: -5% !important;
+/* The image used */
+background-image: url("src/route.jpg") !important;
+  
+/* Full height */
+height: 100% !important; 
+
+/* Center and scale the image nicely */
+background-position: center !important;
+background-repeat: no-repeat !important;
+background-size: cover !important;
+}
+
+
+.loginuser{
+    margin-top: 7%;
+    background-color: rgba(61, 114, 48, 0.329);
+    position: absolute;
+    width: 300px;
+    height: 350px;
+    border-radius: 15px;
+    margin-left: 20%;
+    cursor: pointer;
+    filter: drop-shadow(16px 16px 10px rgba(81, 206, 50, 0.555));
+
+}
+.loginuser:hover{
+    background-color: rgba(61, 114, 48, 0.329);
+    transform: scale(1.1);
+}
+
+.loginemployee{
+    margin-top: 7%;
+    position: absolute;
+    background-color: rgba(61, 114, 48, 0.329);
+    width: 300px;
+    height: 350px;
+    border-radius: 15px;
+    margin-left: 55%;
+    cursor: pointer;
+    filter: drop-shadow(16px 16px 10px rgba(81, 206, 50, 0.555));
+
+}
+
+.loginemployee:hover{
+    background-color: rgba(61, 114, 48, 0.329);
+    transform: scale(1.1);
+}
+
+.label-icon {
+    margin-top: 10%;
+    margin-left: 33%;
+    font-size: 100px;
+    color: darkolivegreen;
+  }
+
+  .label1{
+      color: darkgreen;
+      font-size: large;
+      margin-left: 36%;
+      margin-top: 20%;
+  }
+  .label2{
+    color: darkgreen;
+    font-size: larger;
+    margin-left: 25%;
+    margin-top: 20%;
+}
+
+.makeToolbarsticky{
+
+    position: sticky;
+   
+    top: 0; /* Sets the sticky toolbar to be on top */
+    z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+  
+  }
+
+  .signuppage-icon {
+    width: 30px; 
+    height: 30px;
+    font-size: 30px;
+  }
+
+  /*right align the menu links of sign up & log in*/
+.menu-spacer {
+    margin-left: 815px;
+    margin-top: 0.6%;
+  
+  }
+
+  nav .a {
+    font-size: medium;
+    margin-left: 5%;
+  }
+
+  nav a:active {
+    color: magenta;
+  }
+
+  h1{
+    margin-top: 0.2%;
+    margin-left: 1%;
+  }
+
+.linkdiv {
+  margin-top: 35%;
+  margin-left: 40%;
+} 
+
+.link{
+  color: darkgreen;
+  font-size: large;
+
+}
+.link:active{
+  color: rgb(71, 107, 71);
+}
+
+

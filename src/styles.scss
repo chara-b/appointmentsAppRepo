@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import '~@angular/material/prebuilt-themes/pink-bluegrey.css'; */
+@import '../node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css';
+/* @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'*/
+
+body{
+    margin: 0%;
+    height: 100%;
+    background-color: darken($color: #39383d, $amount: 0);
+}
+
+
+html {
+    height: 100%;
+    margin: 0;
+  }
+
+
+
+.dark-snackbar {
+    background: rgb(158, 29, 78);
+    color: white;
+  }
+
+
+
+
+
+
+
+
+
+
+  /* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #c2185b; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #c04576; 
+}
+

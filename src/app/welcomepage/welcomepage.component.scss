@@ -1,0 +1,26 @@
+body{
+  margin-top: -5% !important;
+}
+ .welcome{
+   font-size: 600%;
+   color: white;
+   font-family: 'Times New Roman', Times, serif;
+   margin-left: 36.4%;
+   margin-top: 20%;
+   position: absolute;
+ }
+
+ .backgroundimage{
+  /* The image used */
+  background-image: url("src/homebackground.gif") !important;
+
+  /* Full height */
+  height: 100% !important;
+
+  /* Center and scale the image nicely */
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important; 
+}
+
+

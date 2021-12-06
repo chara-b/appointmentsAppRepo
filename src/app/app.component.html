@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body app-root>   
+
+    
+<!--the pink menu bar-->
+<mat-toolbar color="primary" class="makeToolbarsticky">
+  <mat-toolbar-row>                
+      <mat-icon class="home-icon">home</mat-icon>
+      <h1> Home Page</h1>
+      <nav class="menu-spacer">
+          <a mat-button [routerLink]="'/'" routerLinkActive="active"><mat-icon>home</mat-icon> Home</a>
+          <a mat-button [routerLink]="'/signup'" routerLinkActive="active"><mat-icon>account_circle</mat-icon> Sign Up</a>
+          <a mat-button [routerLink]="'/login'" routerLinkActive="active"><mat-icon>person</mat-icon> Login </a>
+      </nav>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+  
+  
+  <router-outlet>
+  </router-outlet>
+</body>
+</html>

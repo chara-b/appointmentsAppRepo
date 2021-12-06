@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend_ingress_valid_ssl
+spec:
+  rules:
+    #- host: https://localhost/
+  - http:
+      paths:
+      - backend:
+          serviceName: nginxclusterip
+          servicePort: 443
+  tls:
+    #- hosts:
+        #- https://localhost/
+  - secretName: tlssecret

@@ -1,0 +1,25 @@
+### STAGE 1: Build ###
+FROM node:14.8.0-alpine3.10
+
+# below directory stores the built backend
+
+WORKDIR /backend
+RUN npm install mysql
+RUN npm install bcrypt
+RUN npm install express
+RUN npm install jsonwebtoken
+RUN npm install moment
+RUN npm install nodemailer
+RUN npm install redis
+RUN npm install rxjs
+RUN npm install tslib
+RUN npm install zone.js
+RUN npm install json-stringify-safe
+COPY server.js .
+
+
+
+EXPOSE 3000
+CMD node server.js
+
+

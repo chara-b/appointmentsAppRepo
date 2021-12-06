@@ -1,0 +1,84 @@
+body{
+    margin-top: -5% !important;
+  
+
+  
+ 
+    /* The image used */
+    background-image: url("src/adminlogin.jpg") !important;
+  
+    /* Full height */
+    height: 100% !important; 
+  
+    /* Center and scale the image nicely */
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+  }
+
+  .makeToolbarsticky{
+
+    position: sticky;
+   
+    top: 0; /* Sets the sticky toolbar to be on top */
+    z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+  
+  }
+
+  .signuppage-icon {
+    width: 30px; 
+    height: 30px;
+    font-size: 30px;
+  }
+
+  /*right align the menu links of sign up & log in*/
+.menu-spacer {
+    margin-left: 750px;
+
+  
+  }
+
+  nav .a {
+    font-size: medium;
+    margin-left: 5%;
+  }
+
+  nav a:active {
+    color: magenta;
+  }
+
+  h1{
+    margin-top: 0.2%;
+    margin-left: 1%;
+  }
+
+  .adminlogin{
+    margin-top: -2%;
+    background-color: rgba(214, 94, 94, 0.425);
+    position: absolute;
+    width: 300px;
+    height: 350px;
+    border-radius: 15px;
+    margin-left: 37.5%;
+    filter: drop-shadow(16px 16px 10px rgba(214, 94, 94, 0.425));
+
+}
+
+button.mat-raised-button{
+    margin-top: 5%;
+    margin-left: 65%;
+  }
+
+  
+.center {
+    margin-top: 20%;
+    margin-left: 11%;
+  }
+  
+  .spinner {
+    width: 400px;
+    height: 400px;
+    background: url('src/spinner.gif') no-repeat;
+  
+    margin-left: 39%;
+  }
